@@ -1,0 +1,9 @@
+.idea
+.vertx
+gradle
+libs/ibm/*
+gradlew
+gradlew.bat
+.gradle
+build
+.git
