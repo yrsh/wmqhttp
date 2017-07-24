@@ -21,9 +21,9 @@ class HttpDispatcher(val port: Int): AbstractVerticle() {
         val router = Router.router(vertx)
         router.get("/*").handler(this::headerCheckHandler)
         router.post("/*").handler(this::headerCheckHandler)
-        router.get("/wmq").handler(this::readHandler)
+        router.get("/wmq").blockingHandler(this::readHandler)
         router.post("/wmq").handler(BodyHandler.create())
-        router.post("/wmq").handler(this::writeHandler)
+        router.post("/wmq").blockingHandler(this::writeHandler)
         server.requestHandler(router::accept)
         server.listen(port)
     }
