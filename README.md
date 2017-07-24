@@ -8,19 +8,25 @@ The official implementation of the IBM requires an application
  service and send a request with a header containing 
  information about the queue, the service itself will try 
  to connect and cache this connection with the queue. 
- It is also possible to read the cursor without deleting 
+ It is also possible to read messages by cursor without deleting 
  messages.
  
 ## Examples
 You need to write a wmq-params header with the parameters 
 of the queue manager and the queue.  
-- Receive a message or wait while it appears:  
+- Receive a message or wait while it appears:
+```bash
 curl -X GET -H 'wmq-params: {"type":"rm","host":"127.0.0.1","port":1414,"channel":"CH1","queue":"q1","manager":"QM1","message":{"wait":true}}' http://localhost:3000/wmq
+```
 - Upload message:  
+```bash
 curl -X POST -d 'message test' -H 'wmq-params: {"type":"wr","host":"127.0.0.1","port":1414,"channel":"CH1","queue":"q1","manager":"QM1","message":{"wait":true}}' http://localhost:3000/wmq
-- Read messages by cursor< without removal. You will need to set
- a unique id for your reading session, in the "cursor":  
+```
+- Read messages by cursor, without removal. You will need to set
+ a unique id for your reading session, in the "cursor":
+```bash
 curl -X GET -H 'wmq-params: {"type":"rd","host":"127.0.0.1","port":1414,"channel":"CH1","queue":"q1","manager":"QM1", "message":{"wait":true, "cursor":"a6aa55bb"}}' http://localhost:3000/wmq
+```
 
  
 ## Build
